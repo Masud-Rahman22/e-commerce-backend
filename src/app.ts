@@ -1,11 +1,16 @@
-const express = require('express')
-const app = express()
-const port = 3000
+import express, { Application, Request, Response } from 'express';
+import cors from 'cors';
+import { productRoutes } from './app/modules/products/product.route';
+const app: Application = express();
 
-app.get('/', (req, res) => {
-    res.send('Hello World!')
-})
+// parsers
+app.use(express.json());
+app.use(cors());
 
-app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`)
-})
+app.use('/api', productRoutes);
+
+app.get('/', (req: Request, res: Response) => {
+  res.send();
+});
+export default app;
+// console.log(process.cwd())

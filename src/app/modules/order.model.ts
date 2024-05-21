@@ -1,20 +1,13 @@
-import { Schema, Document, model } from 'mongoose';
-
-// Define the interface for the schema
-interface OrderDocument extends Document {
-    EMAIL: string;
-    PRODUCTID: string;
-    PRICE: number;
-    QUANTITY: number;
-}
+import { Schema, model } from 'mongoose';
+import { TOrder } from './orders/order.interface';
 
 // Define the schema
-const orderSchema = new Schema<OrderDocument>({
-    EMAIL: { type: String, required: true },
-    PRODUCTID: { type: String, required: true },
-    PRICE: { type: Number, required: true },
-    QUANTITY: { type: Number, required: true },
+const orderSchema = new Schema<TOrder>({
+    email: { type: String, required: true },
+    productId: { type: String, required: true },
+    price: { type: Number, required: true },
+    quantity: { type: Number, required: true },
 });
 
 // Define and export the model
-export const OrderModel = model<OrderDocument>('Order', orderSchema);
+export const Order = model<TOrder>('Order', orderSchema);

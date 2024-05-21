@@ -24,7 +24,8 @@ const createProduct = async (req: Request, res: Response) => {
 
 const getAllProducts = async (req: Request, res: Response) => {
     try {
-        const result = await productServices.getAllProducts();
+        const { searchTerm } = req.query;
+        const result = await productServices.getAllProducts(searchTerm as string || '');
 
         res.status(200).json({
             success: true,
@@ -81,26 +82,10 @@ const deleteASingleProduct = async (req: Request, res: Response) => {
     }
 };
 
-const searchASingleProduct = async (req: Request, res: Response) => {
-    try {
-        const searchTerm = req.query.searchTerm as string;
-        const result = await productServices.searchASingleProduct(searchTerm);
-
-        res.status(200).json({
-            success: true,
-            message: 'Product deleted successfully',
-            data: result,
-        });
-    } catch (error) {
-        console.log(error);
-    }
-};
-
 export const productControllers = {
     createProduct,
     getAllProducts,
     getASingleProduct,
     updateASingleProduct,
     deleteASingleProduct,
-    searchASingleProduct
 };

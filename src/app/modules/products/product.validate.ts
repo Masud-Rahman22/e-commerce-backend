@@ -14,7 +14,6 @@ const inventorySchema = z.object({
 
 // Product Schema
 const productValidationSchema = z.object({
-    id: z.string(),
     name: z.string().min(1)
         .max(20),
     description: z.string(),

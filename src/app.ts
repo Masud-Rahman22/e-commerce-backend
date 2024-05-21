@@ -12,7 +12,7 @@ app.use('/api', productRoutes);
 app.use('/api', orderRoutes);
 
 app.get('/', (req: Request, res: Response) => {
-  res.send();
+  res.send('Welcome to the api world of e-commerce');
 });
 
 // Handle 404 - Route not found

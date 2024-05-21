@@ -7,7 +7,14 @@ const createProduct = async (productData: TProduct) => {
     return result;
 };
 
-664cb2ff4535ffc3bb9b0377
+const getAllProducts = async (searchTerm: string) => {
+    let query = {};
+    if (searchTerm) {
+        query = { name: { $regex: searchTerm, $options: 'i' } };
+    }
+    const result = await Product.find(query);
+    return result;
+};
 
 
 const getASingleProduct = async (id: string) => {

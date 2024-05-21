@@ -9,7 +9,7 @@ const createOrder = async (orderData: TOrder) => {
 const getAllOrders = async (email: string) => {
     let query = {};
     if (email) {
-        query = { name: { $regex: email as string, $options: 'i' } };
+        query = { email: { $regex: email, $options: 'i' } };
     }
     const result = await Order.find(query);
     return result;

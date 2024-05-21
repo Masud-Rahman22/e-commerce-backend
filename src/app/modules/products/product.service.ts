@@ -6,7 +6,7 @@ const createProduct = async (productData: TProduct) => {
     const result = await Product.create(productData);
     return result;
 };
-
+// for searching too;
 const getAllProducts = async (searchTerm: string) => {
     let query = {};
     if (searchTerm) {

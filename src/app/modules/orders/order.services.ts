@@ -5,7 +5,7 @@ const createOrder = async (orderData: TOrder) => {
     const result = await Order.create(orderData);
     return result;
 };
-
+// for searching too;
 const getAllOrders = async (email: string) => {
     let query = {};
     if (email) {

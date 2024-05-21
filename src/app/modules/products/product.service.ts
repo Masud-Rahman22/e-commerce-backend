@@ -1,4 +1,4 @@
-import { Types } from 'mongoose';
+import mongoose, { Types } from 'mongoose';
 import { Product } from '../product.model';
 import { TProduct } from './product.interface';
 
@@ -22,8 +22,14 @@ const getASingleProduct = async (id: string) => {
     return result;
 };
 
-const updateASingleProduct = async (id: string) => {
-    const result = await Product.updateOne({ _id: new Types.ObjectId(id) }, { $set: { 'inventory.quantity': 1000 } });
+//Update Product Information
+
+const updateASingleProduct = async (id: string, updateData: any) => {
+    const objectId = new mongoose.Types.ObjectId(id);
+    const result = await Product.findByIdAndUpdate(objectId, updateData, {
+        new: true,
+        runValidators: true,
+    });
     return result;
 };
 

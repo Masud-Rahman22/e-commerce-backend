@@ -32,8 +32,12 @@ const getAllProducts = async (req: Request, res: Response) => {
             message: 'Products fetched successfully!',
             data: result,
         });
-    } catch (error) {
-        console.log(error);
+    } catch (err: any) {
+        res.status(500).json({
+            success: false,
+            message: err.message || 'Something went wrong',
+            error: err,
+        });
     }
 };
 
@@ -47,23 +51,31 @@ const getASingleProduct = async (req: Request, res: Response) => {
             message: 'Product fetched successfully',
             data: result,
         });
-    } catch (error) {
-        console.log(error);
+    } catch (err: any) {
+        res.status(500).json({
+            success: false,
+            message: err.message || 'Something went wrong',
+            error: err,
+        });
     }
 };
 
 const updateASingleProduct = async (req: Request, res: Response) => {
     try {
         const { productId } = req.params;
-        const result = await productServices.updateASingleProduct(productId);
-
+        const { data: updateData } = req.body;
+        const result = await productServices.updateASingleProduct(productId, updateData);
         res.status(200).json({
             success: true,
             message: 'Product updated successfully',
             data: result,
         });
-    } catch (error) {
-        console.log(error);
+    } catch (err: any) {
+        res.status(500).json({
+            success: false,
+            message: err.message || 'Something went wrong',
+            error: err,
+        });
     }
 };
 
@@ -77,8 +89,12 @@ const deleteASingleProduct = async (req: Request, res: Response) => {
             message: 'Product deleted successfully',
             data: null,
         });
-    } catch (error) {
-        console.log(error);
+    } catch (err: any) {
+        res.status(500).json({
+            success: false,
+            message: err.message || 'Something went wrong',
+            error: err,
+        });
     }
 };
 
@@ -87,5 +103,5 @@ export const productControllers = {
     getAllProducts,
     getASingleProduct,
     updateASingleProduct,
-    deleteASingleProduct,
+    deleteASingleProduct
 };

@@ -5,7 +5,7 @@ import { InsufficientQuantityError, NotFoundError } from './order.customErrors';
 
 const createOrder = async (req: Request, res: Response) => {
   try {
-    const { data: orderData } = req.body;
+    const orderData = req.body;
     const zodParseData = orderValidateSchema.parse(orderData);
     const result = await orderServices.createOrder(zodParseData);
 

@@ -1,26 +1,26 @@
-import express, { Application, NextFunction, Request, Response } from 'express';
+import express, { Application, Request, Response } from 'express';
 import cors from 'cors';
-import { productRoutes } from './app/modules/products/product.route';
-import { orderRoutes } from './app/modules/orders/order.route';
+import globalErrorHandler from './app/middlewares/globalErrorHandler';
+import notFound from './app/middlewares/notFound';
+import router from './app/routes';
+import cookieParser from 'cookie-parser';
 const app: Application = express();
 
 // parsers
 app.use(express.json());
-app.use(cors());
+app.use(cookieParser())
+app.use(cors({ origin: ['http://localhost:5173'] }));
 
-app.use('/api', productRoutes);
-app.use('/api', orderRoutes);
+app.use('/api/v1', router)
 
-app.get('/', (req: Request, res: Response) => {
-  res.send('Welcome to the api world of e-commerce');
-});
+const test = (req: Request, res: Response) => {
+  const a = 10;
+  res.sendStatus(a)
+}
 
-// Handle 404 - Route not found
-app.use((req: Request, res: Response, next: NextFunction) => {
-  res.status(404).json({
-    success: false,
-    message: 'Route not found',
-  });
-});
+app.get('/', test);
 
+app.use(globalErrorHandler)
+app.use(notFound)
 export default app;
+// console.log(process.cwd())
